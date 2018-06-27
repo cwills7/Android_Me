@@ -18,6 +18,7 @@ package com.example.android.android_me.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,15 @@ import android.widget.ImageView;
 import com.example.android.android_me.R;
 import com.example.android.android_me.data.AndroidImageAssets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BodyPartFragment extends Fragment {
 
     // TODO (1) Create a setter method and class variable to set and store of a list of image resources
+    private List<Integer> mImageIds;
+    private int mListIndex;
+
 
     // TODO (2) Create another setter method and variable to track and set the index of the list item to display
         // ex. index = 0 is the first image id in the given list , index 1 is the second, and so on
@@ -54,11 +61,36 @@ public class BodyPartFragment extends Fragment {
         // Set the image to the first in our list of head images
         imageView.setImageResource(AndroidImageAssets.getHeads().get(0));
 
-        // TODO (3) If a list of image ids exists, set the image resource to the correct item in that list
         // Otherwise, create a Log statement that indicates that the list was not found
+        try{
+            if (mImageIds.get(mListIndex) != null){
+                imageView.setImageResource(mImageIds.get(mListIndex));
+            }
+        }catch (NullPointerException e){
+            Log.d("IOB", "Image index out of bounds! Image not found.");
+        }
+
+
 
         // Return the rootView
         return rootView;
     }
+
+    public List<Integer> getmImageIds() {
+        return mImageIds;
+    }
+
+    public void setmImageIds(List<Integer> mImageIds) {
+        this.mImageIds = mImageIds;
+    }
+
+    public int getmListIndex() {
+        return mListIndex;
+    }
+
+    public void setmListIndex(int mListIndex) {
+        this.mListIndex = mListIndex;
+    }
+
 
 }
